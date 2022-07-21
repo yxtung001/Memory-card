@@ -1,0 +1,57 @@
+*,
+*::after,
+*::before{
+    box-sizing: border-box;
+    margin: 0;
+    padding:0;
+}
+
+
+
+#space{
+    border:1px solid black;
+    width: 500px;
+    height: 550px;
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    
+    gap: 10px;
+    margin-left: 20px;
+    padding: 5px;
+    position: relative;
+}
+
+.first{
+    display:grid;
+
+    border: 2px solid black;
+
+    height: 10rem;
+    width: 10rem;
+    background-color: red ;
+    position: relative;
+    
+    z-index: 5;
+   
+}
+
+.hiding{
+    display:grid;
+
+    grid-area: 'button';
+    border: 2px solid black;
+
+    height: 10rem;
+    width: 10rem;
+    background-color: aqua ;
+    position: relative;
+    bottom: 21.3rem;
+    z-index: -10;
+    
+    
+}
+#mark{
+    display: block;
+    font-size: 3rem;
+}
