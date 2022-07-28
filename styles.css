@@ -1,3 +1,5 @@
+
+
 *,
 *::after,
 *::before{
@@ -5,53 +7,179 @@
     margin: 0;
     padding:0;
 }
+.backgroundInGameColor{
+    background-color: blue;
+    position: absolute;
+    z-index: -15;
+    width: 100%;
+    height: 100%;
+    display: none;
 
+}
 
+.mainPage{
+    display: flex; /* flex */
+    width: 100%;
+    height: 100%;
+    background-color: red;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    transition: 3s;
+    
+    
+}
+.spaceSetGame{
+    display: grid;
+    grid-template-columns: 1fr 10rem 40rem 5rem ;
+    gap: 10px;
+    grid-template-areas: 
+    'play .setting'
+    "play .audio"
+    'play .history';
+    
+    margin-top: 2rem;
+    width: 100rem;
+    height: 50rem;
+    background-color: black;
+    position: relative;
+    padding: 10px;
+    
+    
+}
+.Timer{
+    font-size: 4rem;
+    position: absolute;
+    top: 5rem;
+    right: 30rem;
+    border: 1px solid black;
+    border-radius: 15px;
+}
+
+.scorePlace{
+    display: inline;
+    
+    font-size: 4rem;
+    position: absolute;
+    width: 18rem;
+    top: 5rem;
+    left: 30rem;
+    border: 1px solid black;
+    border-radius: 15px;
+}
+
+.CloseTheMemoryCard{
+    display: none; /* flex */
+    width: 50%;
+    height: 20rem;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    top: 10rem;
+    left: 25rem;
+    background-color: grey;
+    opacity: .7;
+    z-index: 13;
+}
+
+.setPlaceForSpace{
+    margin: 0 auto;
+    position: absolute;
+    z-index: -20;
+    background-color: grey;
+    width: 80%;
+    justify-content: center;
+    height:100%;
+
+    left: 10rem;
+    
+}
 
 #space{
-    border:1px solid black;
-    width: 500px;
-    height: 550px;
-    display:grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    
+    display:none; /* flex */
+    border:2px solid black;
+    width: 70%;
+    height:fit-content;
+    flex-wrap: wrap;
     gap: 10px;
-    margin-left: 20px;
+
+    justify-content: center;
     padding: 5px;
-    position: relative;
+    position: absolute;
+    z-index: 15;
+    top: 10rem;
+    left: 15rem;
 }
 
 .first{
     display:grid;
 
-    border: 2px solid black;
 
-    height: 10rem;
-    width: 10rem;
-    background-color: red ;
+    height: 9rem;
+    width: 9.3rem;
+    background-color: black ;
     position: relative;
     
     z-index: 5;
    
 }
 
-.hiding{
-    display:grid;
 
-    grid-area: 'button';
-    border: 2px solid black;
 
-    height: 10rem;
-    width: 10rem;
-    background-color: aqua ;
-    position: relative;
-    bottom: 21.3rem;
-    z-index: -10;
+
+.structure{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    opacity: 0.6;
+    z-index: 12;
+    background-color: black;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+}
+.innerStructure{
+    width: 40rem;
+    height: 20rem;
+    background-color: white;
     
+    
+
+}
+
+.gameEndingOuter{
+    position: absolute;
+    z-index: 100;
+    display: none; /* flex */
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: .5;
+    justify-content: center;
+    align-items: center;
     
 }
-#mark{
+
+.gameEndingInner{
+    position: absolute;
     display: block;
-    font-size: 3rem;
+    
+    width: 20rem;
+    height: 10rem;
+    background-color: white;
+    text-align: center;
+    font-size: 2rem;
+    border-radius: 1rem;
+    
 }
+.gameEndingButton{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-size: 1.5rem;
+    border-radius: 0.5rem;
+}
+
+
+

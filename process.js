@@ -1,19 +1,38 @@
 
-
-let matchCount = 5;
-let clicker = 0;
-let round = 6
-let clickTime = round -2
+let insideParagraph = document.querySelector("#insideParagraph")
+let popUpWindow = document.querySelector(".structure")
+let body = document.getElementsByTagName("body")
 let container = document.getElementById("space")
-let mark = parseInt(document.getElementById("mark").innerText)
-let chosedColor = []
+let NumberOfTry = 0
+let bigGameContainer = document.querySelector(".backgroundInGameColor")
 let chosedNumber = []
-let level =[1,2,3,4,5]
-let fullColor = ["green","green","black","black","lightgreen","lightgreen"]
+let fullColor = ["green","green","black","black","grey","grey","purple","purple",""]
 let color = ["blue","yellow","blue","yellow","pink","pink"]
-let mirrorColor = color
+let completed = 0
+let round = 6
+let test = document.querySelector(".test")
+let changeCurrentColor = 50
+let changeNextColor = 30;
+let currentStageColor = []
+let NextStageColor = []
+let transferingColor = []
+let PLAYBUTTON = document.querySelector(".playButton")
+let mainPage = document.querySelector(".mainPage")
+let CloseTheMemoryCard = document.querySelector('.CloseTheMemoryCard')
 
-let completed = []
+let first_Time = 15 //second
+let totalTimeUsed = 0
+let runTimeSecond = 0
+let runTimeMinute = 0
+let minute = document.querySelector(".minute")
+let second = document.querySelector(".second")
+let addColorNumber = 0
+const milisecondRun = 1000
+
+
+
+
+    
 
 function shuffle(array) {
     let currentIndex = array.length;
@@ -34,75 +53,229 @@ function shuffle(array) {
   
     return array;
   }
-shuffle(color) //shuffle color
-
-for(let i =0; i < round ; i++){
-
-    let redBox = document.createElement("div")
-    redBox.className = `first`
-    container.appendChild(redBox)
+ //shuffle color
 
 
-    document.querySelectorAll(".first")[i].addEventListener("click", function swap(){
-        document.querySelectorAll(".first")[i].style.backgroundColor = color[i]
-        chosedColor.push(color[i])
-        chosedNumber.push(i)
+ function addColorInFirstStage(){
+    addColorInNextStage()
+    for(let t = 0; t < round ;t++){
+        currentStageColor.push(`hsl(${(changeCurrentColor).toString()}, 100%, 50%)`)
+        currentStageColor.push(`hsl(${(changeCurrentColor).toString()}, 100%, 50%)`)
+        changeCurrentColor += 50
+        
+    }
+    shuffle(currentStageColor)
+    
+    
+    
+}
+
+function addColorInNextStage(){
+    for(let n= 0; n < 3  ; n++){ //n < 11
+        NextStageColor.push(`hsl(${(changeNextColor).toString()}, 100%, 39%)`)
+        NextStageColor.push(`hsl(${(changeNextColor).toString()}, 100%, 39%)`)
+        changeNextColor +=40
         
         
+        
+    }
+    
+   
 
-        if(chosedNumber[0] == chosedNumber[1]){
-            chosedNumber.splice(1,1)
-            chosedColor.splice(1,1)
+}
+
+
+
+startGame()
+
+function startGame(){
+    PLAYBUTTON.addEventListener("click",startGameInside)
+   
+    
+}
+function startGameInside(){
+    addColorInFirstStage()
+    
+    mainPage.style.display ="none"
+    container.style.display = "none"
+    bigGameContainer.style.display = "flex"
+    CloseTheMemoryCard.style.display ="flex"
+    CloseTheMemoryCard.addEventListener("click",set_up)
+
+}
+
+
+
+async function set_up(){
+    
+
+    container.style.display = "flex"
+    CloseTheMemoryCard.style.display ="none"
+    ChangeSecond()
+    for(let i =0; i < currentStageColor.length ; i++){
+        
+        let redBox = document.createElement("div")
+        redBox.className = `first`
+        redBox.id = i
+        redBox.style.backgroundColor = 'black'
+        redBox.addEventListener("click",choseCard)
+        container.appendChild(redBox)
+        
+        
+    }
+    
+}
+
+function ChangeSecond(){
+    let deleteInterval= setInterval(() => {
+        if(totalTimeUsed == first_Time){
+
+            clearInterval(deleteInterval)
         }
+        if(runTimeSecond == 60){
+            runTimeMinute +=1
+            minute.innerHTML = runTimeMinute.toString().padStart(2,"0")
+            
+            runTimeSecond = 0  
+        }
+        second.innerHTML = runTimeSecond.toString().padStart(2,"0")
+        runTimeSecond+=1
+        totalTimeUsed +=1
+    },milisecondRun);
+}
+
+
+function choseCard(event){
+
+    let id = event.target.id
+    if(chosedNumber.length == 2){
+        return
+    }
+    if (chosedNumber.indexOf(id) != -1){
+        return
+    }
+    chosedNumber.push(id)
+    document.getElementById(id).style.backgroundColor = currentStageColor[id]
+    if(chosedNumber.length ==2){
+
+        matchOrNot()
+    }
     
-        if(chosedNumber[0] != chosedNumber[1] && chosedNumber[1] !== undefined){
-            if(clickTime == 0){
-                document.getElementById("mark").innerText = mark
-                
-            }
-            clickTime -=1
-            console.log(chosedNumber)
-            console.log(chosedColor)
-            if(chosedColor[0] ==chosedColor[1]){
-                document.querySelectorAll(".first")[1].removeEventListener("click",swap)
-                document.querySelectorAll(".first")[2].removeEventListener("click",swap)
-                console.log(document.querySelectorAll(".first")[1])
-                console.log(document.querySelectorAll(".first")[2])
-                mark +=1
-                let anotherSet = chosedColor.splice(0,2)
-                chosedNumber.splice(0,2)
-                
-                
-            }
-    
-             setTimeout(() => {
-                
-                if(chosedColor[0] !==chosedColor[1]){
-                    mark -=1
-    
-                    document.querySelectorAll(".first")[chosedNumber[0]].style.backgroundColor = 'red'
-                    document.querySelectorAll(".first")[chosedNumber[1]].style.backgroundColor = 'red'
-                    
-                    chosedColor.splice(0,2)
-                    chosedNumber.splice(0,2)
-                }
-                
-            }, 0500);
+}
+
+function matchOrNot(){
+    if(currentStageColor[chosedNumber[0]] == currentStageColor[chosedNumber[1]]){
+
+
+        document.getElementById(chosedNumber[0]).removeEventListener("click",choseCard)
+        document.getElementById(chosedNumber[1]).removeEventListener("click",choseCard)
+        chosedNumber =[]
+        NumberOfTry +=1
+        completed +=1
+        endedStages()
+        
+         
+        
+        
+    }
+    else{
+        setTimeout(() => {
+  
+            NumberOfTry +=1
+            document.querySelectorAll(".first")[chosedNumber[0]].style.backgroundColor = "black"
+      
+            document.querySelectorAll(".first")[chosedNumber[1]].style.backgroundColor = "black"
+            chosedNumber =[]
+        }, 0500);
+        
+    }
+}
+
+function endedStages(){
+    setTimeout(() => {
+        if(completed == currentStageColor.length / 2){ //completed == currentStageColor.length / 2
+            document.getElementById("mark").innerText = NumberOfTry
+            
+            Popup()
             
         }
-        
-    })
-
-    
-    
-}
-//first method
-const swaping = () =>{
-    
+    }, 0500);
 }
 
+let buttonNextLevel = document.getElementById("nextLevel")
 
-//second method
+function Popup(){
+    insideParagraph.innerText = `Well done Genius ,You have used total of ${NumberOfTry} steps to solve it, Lets go to the next stages`
+    popUpWindow.style.display ="flex"
+    
+    buttonNextLevel.addEventListener("click",changeLevel)
+}
+
+function changeLevel(){
+
+    completed =0
+    popUpWindow.style.display ="none"
+    while (container.firstChild) {
+    container.removeChild(container.firstChild);
+    }
+    currentStageColor = []
+    changeCurrentColor = 50
+    changeNextColor = 30
+
+    let add_color = NextStageColor.splice(addColorNumber,2)
+    console.log(add_color)
+    if(addColorNumber == 6){
+        EndingOfGame()
+    }
+    console.log(...add_color)
+    transferingColor.push(...add_color)
+    console.log(transferingColor)
+    currentStageColor.push(...transferingColor)
+    NextStageColor  = []
+    addColorNumber +=2
+    first_Time +=7
+    totalTimeUsed = 0
+    runTimeSecond = 0
+    runTimeMinute = 0
+    minute.innerHTML = '00'
+    second.innerHTML = '00'
+    startGameInside()
+    
+}
+
+let endPop  = document.querySelector(".gameEndingOuter")
+let endButton = document.querySelector(".gameEndingButton")
+let gameEndMark = document.querySelector("#gameEndingMark")
+
+function EndingOfGame(){
+    endPop.style.display = "flex"
+    gameEndMark.innerHTML = NumberOfTry.toString()
+    endButton.addEventListener("click", BackToMainMenu)
+}
+
+function BackToMainMenu(){
+    bigGameContainer.style.display = "none"
+    mainPage.style.display = "flex"
+}
 
 
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -5,15 +5,59 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="styles.css">
+        <link rel ="stylesheet" href ="animation.css">
 
     </head>
     <body>
-        <h1>Memory Game</h1>
-        <div id="space" class="all">
-            
-            
+        
+        <div class="mainPage">
+            <h1>Memory Game</h1>
+            <div class="startGame"></div>
+            <div class="spaceSetGame">
+                <button class="playButton" type="button">PLAY</button>
+                <button class="settingButton" type="button">Setting</button>
+                <button class="audioButton" type="button">Audio</button>
+                <button class="historyButton" type="button">History</button>
+            </div>
+
         </div>
-        <label id="mark">0</label>
+        <div class="backgroundInGameColor">
+            <div class="setPlaceForSpace">
+                <div class="Timer">
+                    <label class="minute">00</label>
+                    <label>:</label>
+                    <label class="second">00</label>
+                </div>
+                <div class="CloseTheMemoryCard">
+                    PRESS TO START
+                </div>
+                <div id="space" class="all">
+                        
+                        
+                </div>
+                
+                
+                <div class="scorePlace">Steps : <span id="mark" >0</span></div>
+
+                <div class="gameEndingOuter">
+                    <div class="gameEndingInner">
+                        <p class="gameEndingText">Total Steps used : <span id="gameEndingMark" >0</span></p>
+                        <button class="gameEndingButton" type="button">Exit To main menu</button>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="structure">
+            <div class="innerStructure">
+                <p id="insideParagraph"></p>
+                <button id="nextLevel" type="button">Next Level</button>
+            
+            </div>
+        </div>
+        
+        
         
     </body>
     <script src="process.js"></script>

@@ -1,0 +1,40 @@
+.mainPage h1{
+    font-size: 3rem;
+    position: absolute;
+    top: 3rem;
+    color: white;
+    animation: popUP 1s;
+}
+
+@keyframes popUP{
+    0% {
+        transform: translateY(-100px);
+        opacity: 0;
+    }
+    100%{
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.playButton{
+    font-size: 5rem;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    grid-area: play;
+}
+
+.audioButton{
+    grid-area: audio;
+    font-size: 5rem;
+}
+.settingButton{
+    grid-area: setting;
+    font-size: 5rem;
+}
+.historyButton{
+    grid-area: history;
+    font-size: 5rem;
+}
+
